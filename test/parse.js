@@ -171,6 +171,11 @@ test('parse()', function (t) {
         st.end();
     });
 
+    t.test('parses deeply nested arrays of objects', function (st) {
+        st.deepEqual(qs.parse('a[b][0][c][0][d][0]=e'), { a: { b: [{ c: [{ d: ['e'] }] }] } });
+        st.end();
+    });
+
     t.test('allows for empty strings in arrays', function (st) {
         st.deepEqual(qs.parse('a[]=b&a[]=&a[]=c'), { a: ['b', '', 'c'] });
         st.deepEqual(qs.parse('a[0]=b&a[1]&a[2]=c&a[19]=', { strictNullHandling: true }), { a: ['b', null, 'c', ''] });
